@@ -2,8 +2,6 @@ import numpy as np
 
 
 def getTotalEfficiency(skill):
-
-    # -----------------------------------------
     keys = np.arange(len(skill))
     values = skill
     hash_map = dict(zip(keys, values))
@@ -18,6 +16,8 @@ def getTotalEfficiency(skill):
     # -----------------------------------------
     Unique_teams = [list(y) for y in set(frozenset(y) for y in teams)]
     # -----------------------------------------
+    # find teams with only two members.
+    # find the sum efficiency of unique teams.
     unique_eff = []
     complete_team = []
     for k in unique_sum.keys():
@@ -27,6 +27,7 @@ def getTotalEfficiency(skill):
                 if len(Unique_teams[i]) == 2:
                     complete_team.append(Unique_teams[i])
     # -----------------------------------------
+    # find possible sum efficiencies which shows narrows down the possible teams.
     possible_sums = [x for x in unique_eff if unique_eff.count(x) > 1]
     count_sums = list(set(possible_sums))
     # -----------------------------------------
@@ -37,11 +38,13 @@ def getTotalEfficiency(skill):
     max_ind = counts.index(max_count)
     group_sums = count_sums[max_ind]
     # -----------------------------------------
+    # find groups that have sum efficiencies equal to "count_sums"
     Groups = []
     for i in range(len(complete_team)):
         if sum(complete_team[i]) == group_sums:
             Groups.append(complete_team[i])
     # -----------------------------------------
+    # find efficiencies of each team
     effic = []
     for i in range(len(Groups)):
         effic.append(Groups[i][0]*Groups[i][1])
